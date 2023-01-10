@@ -1,4 +1,5 @@
 import create from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface UseStore {
   count: number;
@@ -6,12 +7,16 @@ interface UseStore {
   minusCount: () => void;
 }
 
-export const useStore = create<UseStore>((set) => ({
+const store = (set: any) => ({
   count: 0,
   plusCount() {
-    set((state) => ({ count: state.count + 1 }));
+    set((state: any) => ({ count: state.count + 1 }));
   },
   minusCount() {
-    set((state) => ({ count: state.count - 1 }));
+    set((state: any) => ({ count: state.count - 1 }));
   },
-}));
+});
+
+export const useStore = create<UseStore>()(
+  process.env.NODE_ENV !== "production" ? devtools(store) : store
+);
