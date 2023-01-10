@@ -1,29 +1,8 @@
 import "./App.css";
 import React from "react";
 import styled from "styled-components";
-import create from "zustand";
-
-interface UseStore {
-  count: number;
-  plusCount: () => void;
-  minusCount: () => void;
-}
-
-const useStore = create<UseStore>((set) => ({
-  count: 0,
-  plusCount() {
-    set((state) => ({ count: state.count + 1 }));
-  },
-  minusCount() {
-    set((state) => ({ count: state.count - 1 }));
-  },
-}));
-
-const Test = () => {
-  const { count } = useStore();
-
-  return <div>카운트: {count}</div>;
-};
+import { useStore } from "store/store";
+import Test from "components/Test";
 
 const App = () => {
   const { plusCount, minusCount } = useStore();
